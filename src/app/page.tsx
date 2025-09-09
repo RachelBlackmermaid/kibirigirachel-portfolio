@@ -3,23 +3,61 @@
 import React from "react";
 import type { MotionProps } from "framer-motion";
 import { motion } from "framer-motion";
-import {
-  Linkedin,
-  Mail,
-  FileDown,
-  ExternalLink,
-  MapPin,
-  ArrowRight,
-  SunMedium,
-  Moon,
-  Link as LinkIcon,
-  Star,
-  Download,
-  Languages,
-} from "lucide-react";
-import { SiGithub } from "@icons-pack/react-simple-icons";
+import { Linkedin, Mail, FileDown, ExternalLink, MapPin, SunMedium, Moon, Link as LinkIcon, Star, Download } from "lucide-react";
 
-// --THEME --
+import { SiGithub } from "@icons-pack/react-simple-icons";
+import type { StaticImageData } from "next/image";
+import Image from "next/image";
+
+
+
+/* ---------- Types ---------- */
+type IconType = React.ComponentType<{ size?: number; className?: string }>;
+
+type Social = {
+  name: string;
+  href: string;
+  icon: IconType;
+};
+
+type Experience = {
+  role: string;
+  company: string;
+  period: string;
+  bullets: string[];
+};
+
+type ProjectLink = {
+  label: string;
+  href?: string; 
+};
+
+type Project = {
+  title: string;
+  description: string;
+  impact?: string;
+  tags: string[];
+  links?: ProjectLink[];
+  image?: string | StaticImageData;
+  stars?: number;
+  downloads?: number;
+};
+
+type SiteData = {
+  name: string;
+  role: string;
+  tags: string[];
+  summary: string;
+  email: string;
+  location: string;
+  resumeUrl: string;
+  socials: Social[];
+  skills: Record<string, string[]>;
+  experience: Experience[];
+  projects: Project[];
+};
+
+/* ---------- THEME ---------- */
 const P = {
   bg: "bg-[#0F0A1E]",
   bgSurface: "bg-[#15102A]",
@@ -37,16 +75,17 @@ const P = {
   accentTo: "to-[#7C3AED]",
 };
 
-// -- DATA --
-const DATA = {
+/* ---------- DATA ---------- */
+const DATA: SiteData = {
   name: "Kibirigi Rachel",
   role: "Full Stack Engineer",
-  tags: ["JavaScript", "TypeScript","Python"],
+  tags: ["JavaScript", "TypeScript", "Python"],
   summary:
     "Versatile Full-Stack Developer passionate about turning complex challenges into simple, valuable solutions",
   email: "kibirigirachel@gmail.com",
   location: "Tokyo, Japan",
   resumeUrl: "/docs/resume.pdf",
+
   socials: [
     {
       name: "GitHub",
@@ -59,7 +98,7 @@ const DATA = {
       icon: Linkedin,
     },
     { name: "Email", href: "mailto:kibirigirachel@gmail.com", icon: Mail },
-  ],
+  ] as Social[],
   skills: {
     Languages: ["JavaScript", "TypeScript", "Python"],
 
@@ -155,19 +194,19 @@ const DATA = {
       company: "Kobe Institute of Computing",
       period: "2019 → 2022 ",
       bullets: [
-        "Designed and prototyped an IoT‑based women’s safety system using Raspberry Pi, Arduino, and mobile integration, showcasing hardware and software design.", 
-        "Presented findings at academic seminars and conferences, gaining recognition for applying technology to address real world social challenges."
+        "Designed and prototyped an IoT‑based women’s safety system using Raspberry Pi, Arduino, and mobile integration, showcasing hardware and software design.",
+        "Presented findings at academic seminars and conferences, gaining recognition for applying technology to address real world social challenges.",
       ],
     },
-
-    
   ],
 
   projects: [
     {
-      title: "CalenCents \u2014 Personal Finance Dashboard with AI Insights",
-      description: "Full-stack budgeting platform with saving goals, expense tracking, and AI-powered financial insights.",
-      impact: "Automates manual spreadsheets with intelligent forecasts, AI guided budgeting, and OCR-based expense entry for greater accuracy and control.",
+      title: "CalenCents — Personal Finance Dashboard with AI Insights",
+      description:
+        "Full-stack budgeting platform with saving goals, expense tracking, and AI-powered financial insights.",
+      impact:
+        "Automates manual spreadsheets with intelligent forecasts, AI guided budgeting, and OCR-based expense entry for greater accuracy and control.",
       tags: [
         "React",
         "Next.js",
@@ -182,24 +221,22 @@ const DATA = {
         "Prophet",
         "OpenAI API",
         "Tesseract OCR",
-        "Pytest"
+        "Pytest",
       ],
       links: [
         {
           label: "Live",
-          href: "https://calencents.xyz"
+          href: "https://calencents.xyz",
         },
-        // {
-        //   label: "Code",
-        //   href: "https://github.com/your/calencents"
-        // }
       ],
-      image: "CalenCents Logo.png",
+      image: "/CalenCents Logo.png",
     },
     {
-      title: "LuxLather \u2014 Full-Stack eCommerce Platform",
-      description: "Modern eCommerce site with Stripe checkout, dynamic admin dashboard, and full product lifecycle management.",
-      impact: "Streamlined product management and purchasing with intuitive browsing, secure payments, and robust state/test architecture.",
+      title: "LuxLather — Full-Stack eCommerce Platform",
+      description:
+        "Modern eCommerce site with Stripe checkout, dynamic admin dashboard, and full product lifecycle management.",
+      impact:
+        "Streamlined product management and purchasing with intuitive browsing, secure payments, and robust state/test architecture.",
       tags: [
         "React",
         "Vite",
@@ -211,22 +248,22 @@ const DATA = {
         "Express",
         "MongoDB",
         "Cloudinary",
-        "React Testing Library"
+        "React Testing Library",
       ],
       links: [
         {
           label: "Live",
-          href: "https://luxlather.store"
+          href: "https://luxlather.store",
         },
-        
       ],
-      image: "luxlatherlogo.png",
-      
+      image: "/luxlatherlogo.png",
     },
     {
-      title: "Care \u2014 Health Management System",
-      description: "Healthcare platform with appointment scheduling and patient records, built with MERN and TypeScript.",
-      impact: "Replaces paper-based systems with digital patient/doctor portals, enabling secure scheduling and role-based access through Appwrite.",
+      title: "Care — Health Management System",
+      description:
+        "Healthcare platform with appointment scheduling and patient records, built with MERN and TypeScript.",
+      impact:
+        "Replaces paper-based systems with digital patient/doctor portals, enabling secure scheduling and role-based access through Appwrite.",
       tags: [
         "React",
         "Node.js",
@@ -235,22 +272,22 @@ const DATA = {
         "TypeScript",
         "Tailwind",
         "Appwrite",
-        "Sentry"
+        "Sentry",
       ],
       links: [
         {
           label: "",
-          href: "https://your-njunacare-site.com"
+          href: "https://your-njunacare-site.com",
         },
-        
       ],
-      image: "healthcarelogo.png",
-      
+      image: "/healthcarelogo.png",
     },
     {
-      title: "Njuna \u2014 IoT Women's Safety System",
-      description: "IoT-based safety system designed to enhance women's personal security using real-time alerts and mobile integration.",
-      impact: "Aims to empower women through discreet wearable tech that enables real-time emergency alerts, with potential to reduce response times and influence future smart-city safety systems.",
+      title: "Njuna — IoT Women's Safety System",
+      description:
+        "IoT-based safety system designed to enhance women's personal security using real-time alerts and mobile integration.",
+      impact:
+        "Aims to empower women through discreet wearable tech that enables real-time emergency alerts, with potential to reduce response times and influence future smart-city safety systems.",
       tags: [
         "IoT",
         "Raspberry Pi",
@@ -260,19 +297,19 @@ const DATA = {
         "Full-stack Development",
         "Real-time Systems",
         "Prototyping",
-        "Kobe Institute of Computing"
+        "Kobe Institute of Computing",
       ],
       links: [
         {
           label: "Research",
-        }
+        },
       ],
-      image: "njunalogo.png",
-    }
-  ]
+      image: "/njunalogo.png",
+    },
+  ],
 };
 
-// -- UTILS --
+/* ---------- UTILS ---------- */
 const cx = (...classes: Array<string | undefined | false>) =>
   classes.filter(Boolean).join(" ");
 
@@ -297,7 +334,7 @@ const canonical = (s: string) => {
   return map[key] ?? s;
 };
 
-// -- PIECES --
+/* ---------- PIECES ---------- */
 function ThemeToggle({ on }: { on?: (dark: boolean) => void }) {
   const [dark, setDark] = React.useState(true);
   React.useEffect(() => void on?.(dark), [dark, on]);
@@ -440,31 +477,34 @@ function SectionDivider() {
 function SocialLinks() {
   return (
     <div className="flex flex-wrap items-center gap-3">
-      {DATA.socials.map((s) => (
-        <a
-          key={s.name}
-          href={s.href}
-          className={cx(
-            "group inline-flex items-center gap-2 rounded-lg border px-3 py-1 text-[12px]",
-            P.border,
-            "bg-[rgba(255,255,255,0.04)]",
-            P.text2,
-            "hover:bg-[rgba(255,255,255,0.06)]"
-          )}
-        >
-          {React.createElement(s.icon as any, { size: 14 })}
-          <span>{s.name}</span>
-          <ExternalLink
-            size={12}
-            className="opacity-60 group-hover:opacity-90"
-          />
-        </a>
-      ))}
+      {DATA.socials.map((s) => {
+        const Icon = s.icon;
+        return (
+          <a
+            key={s.name}
+            href={s.href}
+            className={cx(
+              "group inline-flex items-center gap-2 rounded-lg border px-3 py-1 text-[12px]",
+              P.border,
+              "bg-[rgba(255,255,255,0.04)]",
+              P.text2,
+              "hover:bg-[rgba(255,255,255,0.06)]"
+            )}
+          >
+            <Icon size={14} />
+            <span>{s.name}</span>
+            <ExternalLink
+              size={12}
+              className="opacity-60 group-hover:opacity-90"
+            />
+          </a>
+        );
+      })}
     </div>
   );
 }
 
-// -- EXPERIENCE --
+/* ---------- EXPERIENCE ---------- */
 function ExperienceItem({ e }: { e: (typeof DATA.experience)[number] }) {
   return (
     <motion.li {...fadeIn} className="relative pl-6">
@@ -493,7 +533,7 @@ function ExperienceItem({ e }: { e: (typeof DATA.experience)[number] }) {
   );
 }
 
-// -- PROJECTS --
+/* ---------- PROJECTS ---------- */
 function Spotlight({ selector }: { selector: string }) {
   React.useEffect(() => {
     const root = document.querySelector(selector) as HTMLElement | null;
@@ -538,13 +578,13 @@ function Tag({ children }: { children: React.ReactNode }) {
     </span>
   );
 }
-function ProjectRow({
-  p,
-  index,
-}: {
-  p: (typeof DATA.projects)[number];
-  index: number;
-}) {
+
+function ProjectRow({ p, index }: { p: Project; index: number }) {
+  const firstWithHref = React.useMemo(
+    () => p.links?.find((l) => typeof l.href === "string" && l.href.length > 0),
+    [p.links]
+  );
+
   return (
     <li className="mb-12">
       <div
@@ -568,7 +608,7 @@ function ProjectRow({
 
         {/* Image (always left, first on mobile too) */}
         <a
-          href={p.links?.[0]?.href ?? "#"}
+          href={firstWithHref?.href ?? "#"}
           className="z-10 order-1 sm:order-1 sm:col-span-2 sm:translate-y-1"
         >
           <div
@@ -578,13 +618,16 @@ function ProjectRow({
               "group-hover:border-[rgba(234,230,255,0.18)]"
             )}
           >
+            { }
             {p.image ? (
-              <img
-                src={p.image}
-                alt={p.title}
-                loading={index < 2 ? "eager" : "lazy"}
-                className="h-full w-full object-cover"
-              />
+             <Image
+             src={p.image}
+             alt={p.title}
+             fill
+             priority={index < 2}
+             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+             className="object-cover rounded-md antialiased shadow-md"
+           />
             ) : (
               <div
                 className={cx(
@@ -602,7 +645,7 @@ function ProjectRow({
         <div className="z-10 order-2 sm:order-2 sm:col-span-6">
           <h3 className="leading-tight">
             <a
-              href={p.links?.[0]?.href ?? "#"}
+              href={firstWithHref?.href ?? "#"}
               className={cx(
                 "inline-flex items-baseline font-medium text-base",
                 P.text,
@@ -625,15 +668,17 @@ function ProjectRow({
 
           {/* Links + meta */}
           <div className="mt-3 flex flex-wrap items-center gap-4 text-[12px]">
-            {p.links?.slice(0, 2).map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className={cx(P.link, P.linkHover)}
-              >
-                {l.label}
-              </a>
-            ))}
+            {p.links
+              ?.filter(
+                (l): l is Required<ProjectLink> =>
+                  !!l.href && l.href.length > 0
+              )
+              .slice(0, 2)
+              .map((l) => (
+                <a key={l.label} href={l.href} className={cx(P.link, P.linkHover)}>
+                  {l.label}
+                </a>
+              ))}
             {(p.stars || p.downloads) && (
               <span className={cx("inline-flex items-center gap-2", P.text2)}>
                 {p.stars && (
@@ -692,18 +737,18 @@ function BackToTop() {
   );
 }
 
-// -- PAGE --
+/* ---------- PAGE ---------- */
 export default function IndigoPortfolio(): JSX.Element {
-  const [dark, setDark] = React.useState(true);
+  // const [_dark, setDark] = React.useState(true);
   const [active, setActive] = React.useState<string>("about");
   const year = new Date().getFullYear();
   const flatSkills = React.useMemo(() => Object.values(DATA.skills).flat(), []);
 
   React.useEffect(() => {
     if (typeof window !== "undefined" && !window.location.hash) {
-      window.history.replaceState(null, "", "#experience");
+      window.history.replaceState(null, "", "#about");
       document
-        .getElementById("experience")
+        .getElementById("about")
         ?.scrollIntoView({ behavior: "smooth" });
     }
   }, []);
@@ -734,7 +779,7 @@ export default function IndigoPortfolio(): JSX.Element {
           "bg-[radial-gradient(70rem_32rem_at_50%_-8rem,rgba(139,92,246,0.14),transparent_60%)]"
         )}
       >
-        <TopBar activeId={active} onTheme={setDark} />
+        <TopBar activeId={active}  />
 
         <main className="mx-auto max-w-7xl px-2 xl:grid xl:grid-cols-[360px_minmax(0,1fr)] xl:gap-40 xl:px-2">
           {/* Sidebar (xl+) */}
@@ -825,16 +870,19 @@ export default function IndigoPortfolio(): JSX.Element {
               </nav>
 
               <div className="ml-8 mt-20 flex items-center gap-8">
-                {DATA.socials.map((s) => (
-                  <a
-                    key={s.name}
-                    href={s.href}
-                    className={cx(P.text2, "hover:text-white")}
-                  >
-                    <span className="sr-only">{s.name}</span>
-                    {React.createElement(s.icon as any, { size: 18 })}
-                  </a>
-                ))}
+                {DATA.socials.map((s) => {
+                  const Icon = s.icon;
+                  return (
+                    <a
+                      key={s.name}
+                      href={s.href}
+                      className={cx(P.text2, "hover:text-white")}
+                    >
+                      <span className="sr-only">{s.name}</span>
+                      <Icon size={18} />
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </aside>
@@ -946,11 +994,7 @@ export default function IndigoPortfolio(): JSX.Element {
             <SectionDivider />
 
             {/* Experience */}
-            <Section
-              id="experience"
-              title="Experience"
-              kicker=""
-            >
+            <Section id="experience" title="Experience" kicker="">
               <ol
                 className={cx(
                   "relative ml-1 space-y-6 border-l pl-6",
@@ -991,12 +1035,15 @@ export default function IndigoPortfolio(): JSX.Element {
                   © {year} {DATA.name}. All rights reserved.
                 </p>
                 <div className="flex items-center gap-3">
-                  {DATA.socials.map((s) => (
-                    <a key={s.name} href={s.href} className="hover:text-white">
-                      <span className="sr-only">{s.name}</span>
-                      {React.createElement(s.icon as any, { size: 18 })}
-                    </a>
-                  ))}
+                  {DATA.socials.map((s) => {
+                    const Icon = s.icon;
+                    return (
+                      <a key={s.name} href={s.href} className="hover:text-white">
+                        <span className="sr-only">{s.name}</span>
+                        <Icon size={18} />
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </footer>
