@@ -1,26 +1,71 @@
 @import "tailwindcss";
 
+/* ===== Global Theme Variables ===== */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Dark purple palette (light mode defaults get overridden in @media below) */
+  --purple-bg: #0F0A1E;
+  --purple-surface: #15102A;
+  --purple-border: #2B2144;
+  --purple-text: #EAE6FF;
+  --purple-text-2: #C9BEFF;
+  --purple-text-3: #A698FF;
+  --purple-accent-from: #8B5CF6;
+  --purple-accent-to: #7C3AED;
+  --purple-glow: rgba(139, 92, 246, 0.18);
+  --purple-ring: rgba(139, 92, 246, 0.35);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* Map custom purple colors into Tailwind’s theme system */
+  --color-bg: var(--purple-bg);
+  --color-surface: var(--purple-surface);
+  --color-border: var(--purple-border);
+  --color-text: var(--purple-text);
+  --color-text-2: var(--purple-text-2);
+  --color-text-3: var(--purple-text-3);
+  --color-accent-from: var(--purple-accent-from);
+  --color-accent-to: var(--purple-accent-to);
+  --color-glow: var(--purple-glow);
+  --color-ring: var(--purple-ring);
+
+  --font-sans: var(--font-geist-sans), Inter, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
+/* ===== Dark Mode Override ===== */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--purple-bg);
+    --foreground: var(--purple-text);
   }
 }
 
+/* ===== Base Styles ===== */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+}
+
+/* Optional helper classes if you want them globally */
+.text-primary {
+  color: var(--purple-text);
+}
+.text-secondary {
+  color: var(--purple-text-2);
+}
+.text-muted {
+  color: var(--purple-text-3);
+}
+.bg-surface {
+  background: var(--purple-surface);
+}
+.border-surface {
+  border-color: var(--purple-border);
 }
